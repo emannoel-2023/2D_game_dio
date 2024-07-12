@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bmyu20du0w6on"]
+[gd_scene load_steps=53 format=3 uid="uid://bmyu20du0w6on"]
 
 [ext_resource type="Texture2D" uid="uid://b0tdbtp74bip4" path="res://addons/Tiny Swords/Terrain/Ground/Tilemap_Flat.png" id="1_cs2nm"]
 [ext_resource type="Texture2D" uid="uid://b7t5qfyyuw3vp" path="res://addons/Tiny Swords/Deco/02.png" id="2_8shq2"]
@@ -23,7 +23,6 @@
 [ext_resource type="PackedScene" uid="uid://hj0v0qbv6025" path="res://ui/game_ui.tscn" id="20_2jwed"]
 [ext_resource type="PackedScene" uid="uid://bq0m0jjsvlqr8" path="res://PLayer/player.tscn" id="21_icvvw"]
 [ext_resource type="PackedScene" uid="uid://bnrx288qhksnx" path="res://systems/mob_spawner.tscn" id="22_e41jt"]
-[ext_resource type="PackedScene" uid="uid://q7vlvf5xal01" path="res://systems/meat_spawner.tscn" id="23_jqqmk"]
 [ext_resource type="PackedScene" uid="uid://denn4my72u5fj" path="res://enemies/pawn.tscn" id="24_1wm5c"]
 [ext_resource type="PackedScene" uid="uid://d15u82ideicps" path="res://enemies/goblin.tscn" id="25_s681e"]
 [ext_resource type="PackedScene" uid="uid://btxip0860821j" path="res://misc/tree.tscn" id="25_v7ixn"]
@@ -255,6 +254,7 @@ debug_color = Color(0.956025, 2.02149e-06, 0.540119, 0.42)
 
 [node name="Player" parent="." instance=ExtResource("21_icvvw")]
 position = Vector2(626, 312)
+ritual_damage = 20
 
 [node name="RemoteTransform2D-camera" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -266,20 +266,13 @@ remote_path = NodePath("../../MobSpawner")
 update_rotation = false
 update_scale = false
 
-[node name="RemoteTransform2D2-meatSpawner" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../MeatSpawner")
-update_rotation = false
-update_scale = false
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(626, 312)
 
 [node name="MobSpawner" parent="." instance=ExtResource("22_e41jt")]
 position = Vector2(626, 312)
 creatures = Array[PackedScene]([ExtResource("24_1wm5c"), ExtResource("25_s681e"), ExtResource("26_xhf6c")])
-
-[node name="MeatSpawner" parent="." instance=ExtResource("23_jqqmk")]
-position = Vector2(626, 312)
+mobs_per_minute = 100.0
 
 [node name="Trees" type="Node2D" parent="."]
 y_sort_enabled = true
