@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw6an2yawcluh"]
+
+[ext_resource type="PackedScene" uid="uid://hj0v0qbv6025" path="res://ui/game_ui.tscn" id="1_p43bv"]
+[ext_resource type="PackedScene" uid="uid://bq0m0jjsvlqr8" path="res://PLayer/player.tscn" id="2_3fatg"]
+[ext_resource type="PackedScene" uid="uid://gmbljycc3jr3" path="res://misc/meat.tscn" id="6_2542c"]
+
+[node name="TestUi" type="Node2D"]
+
+[node name="GameUi" parent="." instance=ExtResource("1_p43bv")]
+
+[node name="Player" parent="." instance=ExtResource("2_3fatg")]
+position = Vector2(450, 400)
+ritual_damage = 2
+
+[node name="Meat" parent="." instance=ExtResource("6_2542c")]
+position = Vector2(338, 282)
+
+[node name="Meat2" parent="." instance=ExtResource("6_2542c")]
+position = Vector2(469, 191)

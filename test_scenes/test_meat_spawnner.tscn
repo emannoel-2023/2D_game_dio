@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://jjyvktp88vhb"]
+
+[ext_resource type="PackedScene" uid="uid://q7vlvf5xal01" path="res://systems/meat_spawner.tscn" id="1_s2rx2"]
+[ext_resource type="PackedScene" uid="uid://bq0m0jjsvlqr8" path="res://PLayer/player.tscn" id="2_7gh8g"]
+
+[node name="TestMeatSpawnner" type="Node2D"]
+
+[node name="MeatSpawner" parent="." instance=ExtResource("1_s2rx2")]
+position = Vector2(233, 73)
+scale = Vector2(0.582926, 0.811711)
+meats_per_minute = 15.0
+
+[node name="Player" parent="." instance=ExtResource("2_7gh8g")]
+position = Vector2(549, 322)

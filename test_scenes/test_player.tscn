@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://fou72bpxxm0f"]
+
+[ext_resource type="PackedScene" uid="uid://hj0v0qbv6025" path="res://ui/game_ui.tscn" id="1_5weis"]
+[ext_resource type="PackedScene" uid="uid://bq0m0jjsvlqr8" path="res://PLayer/player.tscn" id="1_rbn1k"]
+[ext_resource type="PackedScene" uid="uid://q7vlvf5xal01" path="res://systems/meat_spawner.tscn" id="2_pa4jq"]
+[ext_resource type="PackedScene" uid="uid://bnrx288qhksnx" path="res://systems/mob_spawner.tscn" id="3_upwjp"]
+
+[node name="test_player" type="Node2D"]
+
+[node name="GameUi" parent="." instance=ExtResource("1_5weis")]
+
+[node name="MeatSpawner" parent="." instance=ExtResource("2_pa4jq")]
+position = Vector2(123, 88)
+scale = Vector2(0.835473, 0.835473)
+
+[node name="MobSpawner" parent="." instance=ExtResource("3_upwjp")]
+mobs_per_minute = 36.0
+
+[node name="Player" parent="." instance=ExtResource("1_rbn1k")]
+position = Vector2(577, 388)
