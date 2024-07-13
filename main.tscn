@@ -1,7 +1,9 @@
-[gd_scene load_steps=53 format=3 uid="uid://bmyu20du0w6on"]
+[gd_scene load_steps=56 format=3 uid="uid://bmyu20du0w6on"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_8w2o0"]
 [ext_resource type="Texture2D" uid="uid://b0tdbtp74bip4" path="res://addons/Tiny Swords/Terrain/Ground/Tilemap_Flat.png" id="1_cs2nm"]
 [ext_resource type="Texture2D" uid="uid://b7t5qfyyuw3vp" path="res://addons/Tiny Swords/Deco/02.png" id="2_8shq2"]
+[ext_resource type="PackedScene" uid="uid://dn4d2g8wxua7r" path="res://game_over_ui.tscn" id="2_ue57x"]
 [ext_resource type="Texture2D" uid="uid://nxgadinbfmee" path="res://addons/Tiny Swords/Deco/10.png" id="3_efpy2"]
 [ext_resource type="Texture2D" uid="uid://v1jepy3uafas" path="res://addons/Tiny Swords/Deco/11.png" id="4_x52k6"]
 [ext_resource type="Texture2D" uid="uid://bn4x7m8m6id7h" path="res://addons/Tiny Swords/Deco/12.png" id="5_6plex"]
@@ -23,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://hj0v0qbv6025" path="res://ui/game_ui.tscn" id="20_2jwed"]
 [ext_resource type="PackedScene" uid="uid://bq0m0jjsvlqr8" path="res://PLayer/player.tscn" id="21_icvvw"]
 [ext_resource type="PackedScene" uid="uid://bnrx288qhksnx" path="res://systems/mob_spawner.tscn" id="22_e41jt"]
+[ext_resource type="Script" path="res://systems/difficulty_system.gd" id="23_jc6c0"]
 [ext_resource type="PackedScene" uid="uid://denn4my72u5fj" path="res://enemies/pawn.tscn" id="24_1wm5c"]
 [ext_resource type="PackedScene" uid="uid://d15u82ideicps" path="res://enemies/goblin.tscn" id="25_s681e"]
 [ext_resource type="PackedScene" uid="uid://btxip0860821j" path="res://misc/tree.tscn" id="25_v7ixn"]
@@ -191,19 +194,22 @@ sources/18 = SubResource("TileSetAtlasSource_pcybg")
 sources/19 = SubResource("TileSetAtlasSource_m2mvi")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nffxr"]
-size = Vector2(4232, 594)
+size = Vector2(4232, 856)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_053h7"]
-size = Vector2(1894.21, 937.452)
+size = Vector2(3345.14, 975.168)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sav50"]
-size = Vector2(4280.98, 599.739)
+size = Vector2(4381.99, 599.739)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3r8q4"]
-size = Vector2(1911, 714.87)
+size = Vector2(3116, 907.864)
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("game_ui")]
 y_sort_enabled = true
+script = ExtResource("1_8w2o0")
+game_ui = NodePath("GameUi")
+game_over_ui_template = ExtResource("2_ue57x")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -225,28 +231,25 @@ layer_2/tile_data = PackedInt32Array(-7, 262144, 0, 589817, 262144, 0, -6, 7, 0,
 collision_layer = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World_limit"]
-position = Vector2(833, -861)
+position = Vector2(833, -992)
 shape = SubResource("RectangleShape2D_nffxr")
 debug_color = Color(0.956025, 2.02149e-06, 0.540119, 0.42)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="World_limit"]
-position = Vector2(2435.46, 376.027)
+position = Vector2(2453.92, 261.527)
 rotation = 1.56728
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_053h7")
 debug_color = Color(0.956025, 2.02149e-06, 0.540119, 0.42)
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="World_limit"]
-position = Vector2(779, 1630)
+position = Vector2(772.93, 1630.05)
 rotation = 3.13284
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_sav50")
 debug_color = Color(0.956025, 2.02149e-06, 0.540119, 0.42)
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="World_limit"]
-position = Vector2(-867.565, 388.5)
+position = Vector2(-964.062, 376.001)
 rotation = 1.5708
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_3r8q4")
 debug_color = Color(0.956025, 2.02149e-06, 0.540119, 0.42)
 
@@ -254,7 +257,6 @@ debug_color = Color(0.956025, 2.02149e-06, 0.540119, 0.42)
 
 [node name="Player" parent="." instance=ExtResource("21_icvvw")]
 position = Vector2(626, 312)
-ritual_damage = 20
 
 [node name="RemoteTransform2D-camera" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
@@ -269,10 +271,16 @@ update_scale = false
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(626, 312)
 
+[node name="DifficultySystem" type="Node" parent="." node_paths=PackedStringArray("mob_spawner")]
+script = ExtResource("23_jc6c0")
+mob_spawner = NodePath("../MobSpawner")
+spawn_rate_initial = 20.0
+spawn_rate_per_minute = 10.0
+time_wave = 60.0
+
 [node name="MobSpawner" parent="." instance=ExtResource("22_e41jt")]
 position = Vector2(626, 312)
 creatures = Array[PackedScene]([ExtResource("24_1wm5c"), ExtResource("25_s681e"), ExtResource("26_xhf6c")])
-mobs_per_minute = 100.0
 
 [node name="Trees" type="Node2D" parent="."]
 y_sort_enabled = true

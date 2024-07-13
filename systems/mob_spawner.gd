@@ -1,12 +1,15 @@
+class_name MobSpawner
 extends Node2D
 
 @export var creatures: Array[PackedScene]
-@export var mobs_per_minute: float = 60.0
+var mobs_per_minute: float = 25.0
 @onready var path_follow_2d = %PathFollow2D
 var cooldown: float = 0.0
 var interval: float 
 
 func _process(delta: float):
+	#ignorar game over
+	if GameManager.is_game_over: return
 	#temporizador
 	cooldown_calc(delta)
 
@@ -29,7 +32,7 @@ func cooldown_calc(delta:float):
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = point
 	parameters.collision_mask = 0b1000
-	var results = world_state.intersect_point(parameters, 1)
+	var results:Array = world_state.intersect_point(parameters, 1)
 	if not results.is_empty():
 		return
 	

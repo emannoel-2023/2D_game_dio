@@ -40,6 +40,8 @@ signal meat_collected(value: int)
 func _ready():
 	GameManager.player = self
 	damage_digit_prefab = preload("res://misc/damage_digit.tscn")
+	meat_collected.connect(func(value:int): GameManager.meat_counter += 1)
+
 func _process(delta: float)-> void:
 	GameManager.player_position = position
 	read_input()
@@ -204,6 +206,7 @@ func damage(amount: int)-> void:
 
 
 func die()-> void:
+	GameManager.end_game()
 	if death_prefab:
 		var death_obj = death_prefab.instantiate()
 		death_obj.position = position
